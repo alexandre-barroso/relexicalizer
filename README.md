@@ -140,6 +140,68 @@ Combines the above loss functions with specific weights.
 3. **Monitor Training**:
     - Check the output directory for saved predictions.
     - Check the model checkpoint directory for saved model checkpoints.
+  
+## Resynth Script
+This script reconstructs audio from the saved predictions.
+
+### Script Overview
+The `resynth` script loads predictions, reconstructs the audio, and saves it as `.wav` files.
+
+### Requirements
+- Python 3.6+
+- NumPy
+- Librosa
+- SoundFile
+- TQDM
+
+### Configuration
+- **predictions_directory**: Directory containing the saved predictions (`predictions`).
+- **output_directory**: Directory to save the reconstructed audio files (`reconstructed_wavs`).
+- **gain**: Gain factor for amplifying the audio (default is 5.0).
+- **mean**: Mean used during normalization (0.2472354034009002).
+- **std**: Standard deviation used during normalization (3.226139918522755).
+
+### Functions
+#### load_prediction
+Loads a prediction file and extracts the STFT magnitude, phase, sample rate, identifier, and original lengths.
+
+#### denormalize
+Denormalizes the data using the provided mean and standard deviation.
+
+#### check_sample_rate
+Ensures the sample rate is sufficient for human voice frequency. Adjusts if necessary.
+
+#### reconstruct_audio
+Reconstructs the audio from STFT magnitude and phase:
+- Checks sample rate.
+- Removes padding.
+- Denormalizes STFT magnitude.
+- Reconstructs complex STFT matrix.
+- Performs inverse STFT to obtain the time-domain signal.
+- Normalizes and applies gain to the audio.
+
+#### save_audio
+Saves the reconstructed audio to the specified output path.
+
+### Running the Script
+1. **Ensure Dependencies**:
+    ```bash
+    pip install numpy librosa soundfile tqdm
+    ```
+
+2. **Run the Script**:
+    ```bash
+    python resynth.py
+    ```
+
+3. **Check the Output**:
+    - The reconstructed audio files will be saved in the `reconstructed_wavs` directory.
+
+## Author
+Alexandre Barroso
+
+## License
+This project is licensed under the GNU License.
 
 ## Author
 Alexandre Menezes Barroso (2024)
