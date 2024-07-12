@@ -196,12 +196,7 @@ Saves the reconstructed audio to the specified output path.
 
 3. **Check the Output**:
     - The reconstructed audio files will be saved in the `reconstructed_wavs` directory.
-
-## Author
-Alexandre Barroso
-
-## License
-This project is licensed under the GNU License.
+      
 
 ## Author
 Alexandre Menezes Barroso (2024)
